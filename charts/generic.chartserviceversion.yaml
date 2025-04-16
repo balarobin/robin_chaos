@@ -1,28 +1,33 @@
 apiVersion: litmuschaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
-  name: kubelet-restart-0.1.0
-  labels:
-    provider: custom
-    category: system
-spec:
-  displayName: Kubelet Restart using Ansible
+  name: generic
   version: 0.1.0
-  maturity: alpha
+  annotations:
+    categories: Kubernetes
+    chartDescription: Injects generic chaos using various experiments
+spec:
+  displayName: Generic Chaos Experiments
+  categoryDescription: >
+    This category contains a collection of generic Kubernetes chaos experiments that can affect pods, containers, nodes, services, and networks.
+  experiments:
+    - kubelet-restart
   keywords:
-    - kubelet
-    - ansible
-    - node
-    - system
+    - Kubernetes
+    - Node
+    - Chaos
+    - Ansible
+    - Systemd
+    - Kubelet
   maintainers:
     - name: rara
-      email: rara@example.com
-  minKubeVersion: "1.17.0"
+      email: raral@example.com
   provider:
-    name: your-org
+    name: Custom
   links:
-    - name: Source
-      url: https://github.com/balarobin/robin_chaos
-  experiments:
-    - name: kubelet-restart
-      specRef: ./kubelet-restart/experiment.yaml
+    - name: Documentation
+      url: https://litmuschaos.io/docs
+  icon:
+    - url: https://raw.githubusercontent.com/litmuschaos/charthub.litmuschaos.io/master/public/litmus.ico
+      mediatype: image/png
+  chaosexpcrdlink: https://raw.githubusercontent.com/litmuschaos/chaos-charts/master/charts/generic/experiments.yaml
