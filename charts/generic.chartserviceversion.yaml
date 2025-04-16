@@ -22,7 +22,7 @@ spec:
     name: your-org
   links:
     - name: Source
-      url: https://github.com/balarobin/ansiblelitmus
+      url: https://github.com/balarobin/robin_chaos
   experiments:
     - name: kubelet-restart
-      specRef: ./kubelet-restart-ansible/experiment.yaml
+      specRef: ./kubelet-restart/experiment.yaml
