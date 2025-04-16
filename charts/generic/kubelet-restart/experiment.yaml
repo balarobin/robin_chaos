@@ -6,25 +6,59 @@ metadata:
     name: kubelet-restart
 spec:
   definition:
-    scope: Cluster
+    scope: Node
     permissions:
       - apiGroups: [""]
         resources: ["pods", "nodes"]
+        verbs: ["create", "list", "get", "delete", "patch"] # Added "patch" which is often needed
+      - apiGroups: ["batch"]  # Added batch API group for Jobs
+        resources: ["jobs"]
         verbs: ["create", "list", "get", "delete"]
-    image: litmuschaos/go-runner:latest
+    image: litmuschaos/go-runner:latest # Keep go-runner
     command:
-      - echo
+      - /bin/bash # Change the command to /bin/bash
     args:
-      - "This is a placeholder container, real logic runs via job.yaml"
+      - -c
+      - |
+        # Use the Generic chaos experiment from the litmus-go library
+        /usr/local/bin/generic -name kubelet-restart -namespace $CHAOS_NAMESPACE \
+        -targetNode $TARGET_NODE \
+        -jobTemplatePath /tmp/job.yaml # IMPORTANT: Path to your job.yaml in the container
     env:
       - name: TOTAL_CHAOS_DURATION
         value: "10"
+      - name: TARGET_NODE  # Add TARGET_NODE env
+        value: "" # This will be injected by ChaosEngine
+      - name: CHAOS_NAMESPACE # Add CHAOS_NAMESPACE
+        value: ""  # This will be injected by ChaosEngine
     labels:
       name: kubelet-restart
     components:
-      experimentImage: "alpine:latest"
+      experimentImage: "rockylinux:8" #  Use rockylinux:8 as the experimentImage
       runner:
         image: "litmuschaos/chaos-runner:2.7.0"
     experimentResources:
       - name: job-template
-        resource: job.yaml
+        resource: |
+          apiVersion: batch/v1
+          kind: Job
+          metadata:
+            name: kubelet-restart-job
+          spec:
+            template:
+              spec:
+                hostPID: true
+                nodeName: <TARGET_NODE_NAME> #  Leave this as a placeholder
+                containers:
+                  - name: kubelet-restart
+                    image: rockylinux:8
+                    securityContext:
+                      privileged: true
+                    command:
+                      - /bin/bash
+                      - -c
+                      - |
+                        yum install -y util-linux &&
+                        nsenter --target 1 --mount --uts --ipc --net --pid systemctl stop kubelet &&
+                        echo "Kubelet restarted successfully!"
+                restartPolicy: Never
