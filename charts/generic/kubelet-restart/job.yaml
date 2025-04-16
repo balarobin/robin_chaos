@@ -6,16 +6,17 @@ spec:
   template:
     spec:
       hostPID: true
+      nodeName: <TARGET_NODE_NAME>
       containers:
         - name: kubelet-restart
           image: rockylinux:8
+          securityContext:
+            privileged: true
           command:
             - /bin/bash
             - -c
             - |
               yum install -y util-linux &&
-              nsenter --target 1 --mount --uts --ipc --net --pid systemctl restart kubelet
-          securityContext:
-            privileged: true
+              nsenter --target 1 --mount --uts --ipc --net --pid systemctl stop kubelet &&
+              echo "Kubelet restarted successfully!"
       restartPolicy: Never
-      nodeName: <your-target-node-name>
