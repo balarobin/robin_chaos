@@ -15,8 +15,8 @@ spec:
     - node
     - system
   maintainers:
-    - name: your-name
-      email: your-email@example.com
+    - name: rara
+      email: rara@example.com
   minKubeVersion: "1.17.0"
   provider:
     name: your-org
