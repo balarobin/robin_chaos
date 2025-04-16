@@ -1,0 +1,28 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChartServiceVersion
+metadata:
+  name: kubelet-restart-ansible-0.1.0
+  labels:
+    provider: custom
+    category: system
+spec:
+  displayName: Kubelet Restart using Ansible
+  version: 0.1.0
+  maturity: alpha
+  keywords:
+    - kubelet
+    - ansible
+    - node
+    - system
+  maintainers:
+    - name: your-name
+      email: your-email@example.com
+  minKubeVersion: "1.17.0"
+  provider:
+    name: your-org
+  links:
+    - name: Source
+      url: https://github.com/balarobin/ansiblelitmus
+  experiments:
+    - name: kubelet-restart-ansible
+      specRef: ./kubelet-restart-ansible/experiment.yaml
