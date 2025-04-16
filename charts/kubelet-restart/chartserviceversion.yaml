@@ -1,0 +1,9 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosExperiment
+metadata:
+  name: kubelet-restart
+spec:
+  displayName: "Kubelet Restart"
+  category: "Node Level"
+  provider:
+    name: "BalaRobin"
