@@ -7,5 +7,5 @@ metadata:
     chaos-category: system
 spec:
   experiments:
-    - name: kubelet-restart-ansible
-      chartServiceVersion: kubelet-restart-ansible-0.1.0
+    - name: kubelet-restart
+      chartServiceVersion: kubelet-restart-0.1.0
