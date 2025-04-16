@@ -1,0 +1,11 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosPackage
+metadata:
+  name: kubelet-restart-ansible
+  labels:
+    chaos-provider: custom
+    chaos-category: system
+spec:
+  experiments:
+    - name: kubelet-restart-ansible
+      chartServiceVersion: kubelet-restart-ansible-0.1.0
