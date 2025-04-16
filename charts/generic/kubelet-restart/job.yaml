@@ -2,18 +2,20 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: kubelet-restart-job
-  labels:
-    app: kubelet-restart
 spec:
   template:
-    metadata:
-      name: kubelet-restart-job
     spec:
+      hostPID: true
       containers:
         - name: kubelet-restart
-          image: busybox
+          image: rockylinux:8
           command:
-            - /bin/sh
+            - /bin/bash
             - -c
-            - "systemctl restart kubelet"
+            - |
+              yum install -y util-linux &&
+              nsenter --target 1 --mount --uts --ipc --net --pid systemctl restart kubelet
+          securityContext:
+            privileged: true
       restartPolicy: Never
+      nodeName: <your-target-node-name>
