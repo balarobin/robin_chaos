@@ -10,7 +10,12 @@ spec:
     appkind: ""
   chaosServiceAccount: litmus-admin
   experiments:
-    - name: kubelet-restart
+    - name: kubelet-restart-ansible
+      spec:
+        components:
+          env:
+            - name: TARGET_NODE
+              value: "node01"
   annotationCheck: "false"
   engineState: active
-  jobCleanUpPolicy: delete
+  jobCleanUpPolicy: retain
