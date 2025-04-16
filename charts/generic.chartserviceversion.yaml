@@ -1,7 +1,7 @@
 apiVersion: litmuschaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
-  name: kubelet-restart-ansible-0.1.0
+  name: kubelet-restart-0.1.0
   labels:
     provider: custom
     category: system
@@ -24,5 +24,5 @@ spec:
     - name: Source
       url: https://github.com/balarobin/ansiblelitmus
   experiments:
-    - name: kubelet-restart-ansible
+    - name: kubelet-restart
       specRef: ./kubelet-restart-ansible/experiment.yaml
