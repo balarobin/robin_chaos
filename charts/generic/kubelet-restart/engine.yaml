@@ -10,7 +10,7 @@ spec:
     appkind: ""
   chaosServiceAccount: litmus-admin
   experiments:
-    - name: kubelet-restart-ansible
+    - name: kubelet-restart
       spec:
         components:
           env:
