@@ -1,7 +1,7 @@
 apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosPackage
 metadata:
-  name: kubelet-restart-ansible
+  name: kubelet-restart
   labels:
     chaos-provider: custom
     chaos-category: system
