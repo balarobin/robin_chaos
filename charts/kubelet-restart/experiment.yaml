@@ -22,7 +22,6 @@ spec:
         value: "10"
     labels:
       name: kubelet-restart
-    configmaps: []
     components:
       experimentImage: "alpine:latest"
       runner:
