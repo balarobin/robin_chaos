@@ -12,6 +12,10 @@ spec:
         resources: ["pods", "nodes"]
         verbs: ["create", "list", "get", "delete"]
     image: litmuschaos/go-runner:latest
+    command:
+      - echo
+    args:
+      - "This is a placeholder container, real logic runs via job.yaml"
     env:
       - name: TOTAL_CHAOS_DURATION
         value: "10"
