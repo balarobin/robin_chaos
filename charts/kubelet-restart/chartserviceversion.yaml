@@ -1,46 +1,23 @@
-apiVersion: operator.litmuschaos.io/v1alpha1
+apiVersion: litmuschaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
   name: kubelet-restart
-  namespace: litmus
+  version: 0.1.0
+  annotations:
+    categories: Kubernetes
+    chartDescription: Restart kubelet 
 spec:
-  displayName: "Kubelet Restart"
-  description: "This experiment kills the kubelet service on the node to simulate node failure"
-  version: 2.7.0
-  provider:
-    name: LitmusChaos
+  displayName: Restart Kubelet
   keywords:
-    - chaos
-    - kubernetes
-    - kubelet-restart
-  maintainer:
-    name: LitmusChaos
-    email: litmuschaos@litmuschaos.io
+    - Kubelet
+    - Node
+    - Ansible
+    - Chaos
+  maturity: alpha
+  provider:
+    name: Custom
+  minKubeVersion: 1.12.0
   links:
     - name: Docs
-      url: "https://litmuschaos.io/docs/"
-  icon: "https://cdn.litmuschaos.io/icons/kubelet-restart.png"
-  experiment:
-    definition:
-      apiVersion: litmuschaos.io/v1alpha1
-      kind: ChaosExperiment
-      spec:
-        experimentFile:
-          path: /experiments/kubelet-restart/experiment.yaml
-        jobFile:
-          path: /experiments/kubelet-restart/job.yaml
-        chaosEngine:
-          name: kubelet-restart
-          namespace: litmus
-        annotations:
-          app: "kubelet-restart"
-          chaos: "true"
-        chaosExperiment:
-          name: kubelet-restart
-        environmentVariables:
-          - name: CHAOS_NAMESPACE
-            value: "litmus"
-        chaosDuration: "30m"
-        targetNodes:
-          - "node1"
-          - "node2"
+      url: https://litmuschaos.io/docs
+  chaosExpCRDLink: https://raw.githubusercontent.com/balarobin/kubelet-restart/experiment.yaml
