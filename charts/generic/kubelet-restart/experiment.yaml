@@ -26,3 +26,6 @@ spec:
       experimentImage: "alpine:latest"
       runner:
         image: "litmuschaos/chaos-runner:2.7.0"
+    experimentResources:
+      - name: job-template
+        resource: job.yaml
