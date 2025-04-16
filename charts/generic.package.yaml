@@ -1,5 +1,0 @@
-packageName: generic
-experiments:
-  - name: kubelet-restart
-    CSV: chartserviceversion.yaml
-    desc: "Restarts kubelet on a node using Ansible"
