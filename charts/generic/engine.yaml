@@ -11,4 +11,4 @@ spec:
   chaosServiceAccount: litmus-admin
   experiments:
     - name: kubelet-restart
-  jobCleanUpPolicy: delete
+  jobCleanUpPolicy: retain
