@@ -30,4 +30,4 @@ spec:
         resource: job.yaml
     labels:
       name: kubelet-restart
-    scope: Cluster
+    
