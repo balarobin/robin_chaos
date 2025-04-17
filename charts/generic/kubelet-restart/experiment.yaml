@@ -25,6 +25,9 @@ spec:
     env:
       - name: TOTAL_CHAOS_DURATION
         value: "10"  # This defines the duration of the chaos experiment in seconds
+    experimentResources:
+      - name: job-template
+        resource: job.yaml
     labels:
       name: kubelet-restart
     scope: Cluster
