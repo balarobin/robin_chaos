@@ -10,55 +10,28 @@ spec:
     permissions:
       - apiGroups: [""]
         resources: ["pods", "nodes"]
-        verbs: ["create", "list", "get", "delete", "patch"] # Added "patch" which is often needed
-      - apiGroups: ["batch"]  # Added batch API group for Jobs
-        resources: ["jobs"]
-        verbs: ["create", "list", "get", "delete"]
-    image: litmuschaos/go-runner:latest # Keep go-runner
+        verbs: ["create", "list", "get", "delete", "patch"]
+    image: litmuschaos/go-runner:latest
     command:
-      - /bin/bash # Change the command to /bin/bash
+      - /bin/bash
     args:
       - -c
       - |
-        # Use the Generic chaos experiment from the litmus-go library
-        /usr/local/bin/generic -name kubelet-restart -namespace $CHAOS_NAMESPACE \
-        -targetNode $TARGET_NODE \
-        -jobTemplatePath /tmp/job.yaml # IMPORTANT: Path to your job.yaml in the container
+        set -x # Enable debugging
+        echo "Attempting to restart kubelet directly on the node..."
+        #  Mount the node's root filesystem.  This is VERY important.
+        mount --bind / /hostroot
+        #  Use chroot to execute commands in the node's environment.
+        chroot /hostroot /bin/bash -c "systemctl stop kubelet"
+        echo "Kubelet stop command executed."
+        chroot /hostroot /bin/bash -c "systemctl status kubelet" # check the status
+        echo "Kubelet status checked."
     env:
-      - name: TOTAL_CHAOS_DURATION
-        value: "10"
-      - name: TARGET_NODE  # Add TARGET_NODE env
-        value: "" # This will be injected by ChaosEngine
-      - name: CHAOS_NAMESPACE # Add CHAOS_NAMESPACE
-        value: ""  # This will be injected by ChaosEngine
+      - name: TARGET_NODE
+        value: ""
     labels:
       name: kubelet-restart
     components:
-      experimentImage: "rockylinux:8" #  Use rockylinux:8 as the experimentImage
+      experimentImage: alpine:latest #  alpine
       runner:
         image: "litmuschaos/chaos-runner:2.7.0"
-    experimentResources:
-      - name: job-template
-        resource: |
-          apiVersion: batch/v1
-          kind: Job
-          metadata:
-            name: kubelet-restart-job
-          spec:
-            template:
-              spec:
-                hostPID: true
-                nodeName: <TARGET_NODE_NAME> #  Leave this as a placeholder
-                containers:
-                  - name: kubelet-restart
-                    image: rockylinux:8
-                    securityContext:
-                      privileged: true
-                    command:
-                      - /bin/bash
-                      - -c
-                      - |
-                        yum install -y util-linux &&
-                        nsenter --target 1 --mount --uts --ipc --net --pid systemctl stop kubelet &&
-                        echo "Kubelet restarted successfully!"
-                restartPolicy: Never
