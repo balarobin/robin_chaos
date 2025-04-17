@@ -1,22 +1,30 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: kubelet-restart-job
-spec:
-  template:
-    spec:
-      hostPID: true
-      nodeName: <TARGET_NODE_NAME>
-      containers:
-        - name: kubelet-restart
-          image: rockylinux:8
-          securityContext:
-            privileged: true
-          command:
-            - /bin/bash
-            - -c
-            - |
-              yum install -y util-linux &&
-              nsenter --target 1 --mount --uts --ipc --net --pid systemctl stop kubelet &&
-              echo "Kubelet restarted successfully!"
-      restartPolicy: Never
+piVersion: batch/v1
+ kind: Job
+ metadata:
+   name: kubelet-restart
+   labels:
+     app: kubelet-restart
+ spec:
+   template:
+     spec:
+       restartPolicy: Never
+       hostPID: true
+       containers:
+       - name: kubelet-restart
+         image: alpine:latest
+         command: ["/bin/sh", "-c"]
+         args:
+           - |
+             apk add util-linux
+             echo "Restarting kubelet..."
+             nsenter --mount=/host/proc/1/ns/mnt systemctl stop kubelet
+             echo "Kubelet restarted"
+         securityContext:
+           privileged: true
+         volumeMounts:
+         - name: host-root
+           mountPath: /host
+       volumes:
+       - name: host-root
+         hostPath:
+           path: /
