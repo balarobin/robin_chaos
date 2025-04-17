@@ -2,36 +2,22 @@ apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosExperiment
 metadata:
   name: kubelet-restart
-  labels:
-    name: kubelet-restart
+  namespace: litmus
 spec:
   definition:
-    scope: Node
+    scope: Cluster
     permissions:
       - apiGroups: [""]
-        resources: ["pods", "nodes"]
-        verbs: ["create", "list", "get", "delete", "patch"]
-    image: litmuschaos/go-runner:latest
+        resources: ["pods", "nodes", "jobs"]
+        verbs: ["get", "list", "create", "delete"]
+    image: spidybala/git-kubectl:latest  # or your custom image with git + kubectl
     command:
-      - /bin/bash
+      - /bin/sh
     args:
       - -c
       - |
-        set -x # Enable debugging
-        echo "Attempting to restart kubelet directly on the node..."
-        #  Mount the node's root filesystem.  This is VERY important.
-        mount --bind / /hostroot
-        #  Use chroot to execute commands in the node's environment.
-        chroot /hostroot /bin/bash -c "systemctl stop kubelet"
-        echo "Kubelet stop command executed."
-        chroot /hostroot /bin/bash -c "systemctl status kubelet" # check the status
-        echo "Kubelet status checked."
+        git clone https://github.com/balarobin/ansiblelitmus /tmp/job &&
+        kubectl apply -f /tmp/job/utils/kubelet-restart-job.yaml
     env:
-      - name: TARGET_NODE
-        value: ""
-    labels:
-      name: kubelet-restart
-    components:
-      experimentImage: alpine:latest #  alpine
-      runner:
-        image: "litmuschaos/chaos-runner:2.7.0"
+      - name: TOTAL_CHAOS_DURATION
+        value: "10"
