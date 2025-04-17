@@ -18,4 +18,4 @@ spec:
               value: "node01"
   annotationCheck: "false"
   engineState: active
-  jobCleanUpPolicy: delete
+  jobCleanUpPolicy: retain
