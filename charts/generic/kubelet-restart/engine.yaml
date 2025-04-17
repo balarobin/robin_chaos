@@ -4,10 +4,6 @@ metadata:
   name: kubelet-restart-engine
   namespace: litmus
 spec:
-  appinfo:
-    appns: default
-    applabel: ""
-    appkind: ""
   chaosServiceAccount: litmus-admin
   experiments:
     - name: kubelet-restart
@@ -18,4 +14,4 @@ spec:
               value: "node01"
   annotationCheck: "false"
   engineState: active
-  jobCleanUpPolicy: retain
+  jobCleanUpPolicy: delete
