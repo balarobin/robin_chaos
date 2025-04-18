@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       hostPID: true
-      nodeName: <TARGET_NODE_NAME>
+      nodeName: TARGET_NODE_NAME
       containers:
         - name: kubelet-restart
           image: rockylinux:8
