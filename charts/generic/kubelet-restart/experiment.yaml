@@ -18,7 +18,7 @@ spec:
         git clone https://github.com/balarobin/robin_chaos /litmus-ansible &&
 
         # Now, execute the job.yaml file to restart the kubelet
-        kubectl apply -f /litmus-ansible/charts/kubelet-restart/job.yaml
+        sed "s/TARGET_NODE/$TARGET_NODE/" /litmus-ansible/charts/kubelet-restart/job.yaml | kubectl apply -f -
 
     command:
       - /bin/bash  # Run the script via bash shell
