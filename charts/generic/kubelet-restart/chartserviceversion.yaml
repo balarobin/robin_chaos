@@ -20,4 +20,4 @@ spec:
   links:
     - name: Docs
       url: https://litmuschaos.io/docs
-  chaosExpCRDLink: https://raw.githubusercontent.com/balarobin/kubelet-restart/experiment.yaml
+  chaosExpCRDLink: https://raw.githubusercontent.com/balarobin/robin_chaos/generic/kubelet-restart/experiment.yaml

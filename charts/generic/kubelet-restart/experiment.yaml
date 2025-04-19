@@ -1,0 +1,33 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosExperiment
+metadata:
+  name: kubelet-restart
+  namespace: litmus
+spec:
+  definition:
+    scope: Cluster
+    permissions:
+      - apiGroups: [""]
+        resources: ["pods", "nodes"]
+        verbs: ["get", "list", "patch", "delete"]
+    image: spidybala/git-kubectl:latest  # Custom image with git and kubectl
+    args:
+      - "-c"
+      - |
+        # Clone the Git repository containing the job.yaml
+        git clone https://github.com/balarobin/robin_chaos /litmus-ansible &&
+
+        # Now, execute the job.yaml file to restart the kubelet
+        sed "s/TARGET_NODE/$TARGET_NODE/" /litmus-ansible/charts/kubelet-restart/job.yaml | kubectl apply -f -
+
+    command:
+      - /bin/bash  # Run the script via bash shell
+    env:
+      - name: TOTAL_CHAOS_DURATION
+        value: "10"  # This defines the duration of the chaos experiment in seconds
+    experimentResources:
+      - name: job-template
+        resource: job.yaml
+    labels:
+      name: kubelet-restart
+    
