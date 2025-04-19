@@ -2,4 +2,7 @@ packageName: generic
 experiments:
   - name: kubelet-restart
     CSV: chartserviceversion.yaml
-    desc: "Restarts kubelet on a node using Ansible"
+    desc: "Restarts kubelet on a node"
+  - name: core-dns
+    CSV: chartserviceversion.yaml
+    desc: "Shutdown core-dns"
