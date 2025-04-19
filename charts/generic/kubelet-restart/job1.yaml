@@ -4,6 +4,8 @@ metadata:
   name: delayed-job
   namespace: litmus
 spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
   ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
   template:
     spec:
