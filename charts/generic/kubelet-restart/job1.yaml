@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delayed-job
+  namespace: default
+spec:
+  ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
+  template:
+    spec:
+      containers:
+      - name: example
+        image: alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - sleep 300 && kubectl delete job -n litmus kubelet-restart
+      restartPolicy: Never
