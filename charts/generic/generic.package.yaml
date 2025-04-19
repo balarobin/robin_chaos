@@ -6,3 +6,6 @@ experiments:
   - name: core-dns
     CSV: core-dns.chartserviceversion.yaml
     desc: "Shutdown core-dns"
+  - name: docker-dns
+    CSV: docker.chartserviceversion.yaml
+    desc: "Shutdown docker"
