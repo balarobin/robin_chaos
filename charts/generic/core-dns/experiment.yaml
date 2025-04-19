@@ -8,8 +8,8 @@ spec:
     scope: Cluster
     permissions:
       - apiGroups: [""]
-        resources: ["pods", "nodes","deployment"]
-        verbs: ["get", "list", "patch", "delete","scale"]
+        resources: ["pods", "nodes","deployment/scale"]
+        verbs: ["get", "list", "patch", "delete"]
     image: spidybala/git-kubectl:latest  # Custom image with git and kubectl
     args:
       - "-c"
