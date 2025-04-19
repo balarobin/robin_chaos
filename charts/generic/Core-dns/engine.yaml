@@ -1,0 +1,12 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: kubelet-restart-engine
+  namespace: litmus
+spec:
+  chaosServiceAccount: litmus-admin
+  experiments:
+    - name: kubelet-restart
+  annotationCheck: "false"
+  engineState: active
+  jobCleanUpPolicy: delete
