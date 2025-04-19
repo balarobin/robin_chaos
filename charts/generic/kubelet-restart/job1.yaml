@@ -9,6 +9,7 @@ spec:
   ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
   template:
     spec:
+      serviceAccountName: litmus-admin
       containers:
       - name: example
         image: spidybala/git-kubectl:latest 
