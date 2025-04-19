@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: delayed-job
-  namespace: default
+  namespace: litmus
 spec:
   ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
   template:
