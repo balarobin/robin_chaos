@@ -13,6 +13,7 @@ spec:
   experiments:
     - kubelet-restart
     - core-dns
+    - docker-restart
   keywords:
     - Kubernetes
     - Node
