@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: core-dns
+  namespace: litmus
   labels:
     app: core-dns
 spec:
@@ -17,15 +18,15 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            export KUBECONFIG=/root/.kube/config
+            export KUBECONFIG=/kubeconfig/config
             kubectl scale deployment -n kube-system coredns --replicas=0
         volumeMounts:
         - name: kubeconfig
-          mountPath: /root/.kube/config
-          subPath: config
+          mountPath: /kubeconfig
+          readOnly: true
       volumes:
       - name: kubeconfig
         hostPath:
-          path: /root/.kube/config  # Path on the host node
+          path: /root/.kube/config  # Ensure this path exists on the host node
           type: File
       restartPolicy: Never
