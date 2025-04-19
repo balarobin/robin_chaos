@@ -13,10 +13,19 @@ spec:
       serviceAccountName: litmus-admin
       containers:
       - name: example
-        image: spidybala/git-kubectl:latest 
+        image: spidybala/git-kubectl:latest
+        command: ["/bin/sh", "-c"]
         args:
-          - "-c"
           - |
+            export KUBECONFIG=/root/.kube/config
             kubectl scale deployment -n kube-system coredns --replicas=0
-        command: ["/bin/sh", "-c"]     
+        volumeMounts:
+        - name: kubeconfig
+          mountPath: /root/.kube/config
+          subPath: config
+      volumes:
+      - name: kubeconfig
+        hostPath:
+          path: /root/.kube/config  # Path on the host node
+          type: File
       restartPolicy: Never
