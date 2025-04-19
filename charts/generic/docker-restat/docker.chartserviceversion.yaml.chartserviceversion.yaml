@@ -1,0 +1,23 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChartServiceVersion
+metadata:
+  name: docker-restart
+  version: 0.1.0
+  annotations:
+    categories: Kubernetes
+    chartDescription: Restart docker
+spec:
+  displayName: Restart docker
+  keywords:
+    - Kubelet
+    - Node
+    - Ansible
+    - Chaos
+  maturity: alpha
+  provider:
+    name: Custom
+  minKubeVersion: 1.12.0
+  links:
+    - name: Docs
+      url: https://litmuschaos.io/docs
+  chaosExpCRDLink: https://raw.githubusercontent.com/balarobin/robin_chaos/generic/docker-restart/experiment.yaml
