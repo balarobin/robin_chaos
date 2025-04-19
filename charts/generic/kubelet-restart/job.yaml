@@ -6,6 +6,7 @@ metadata:
     app: kubelet-restart
 spec:
   backoffLimit: 0
+  ttlSecondsAfterFinished: 180
   activeDeadlineSeconds: 180
   template:
     spec:
