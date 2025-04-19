@@ -14,13 +14,16 @@ spec:
     args:
       - "-c"
       - |
+        export KUBECONFIG=/root/.kube/config
         kubectl scale deployment -n kube-system coredns --replicas=0
-
     command:
       - /bin/bash  # Run the script via bash shell
     env:
       - name: TOTAL_CHAOS_DURATION
-        value: "10"  # This defines the duration of the chaos experiment in seconds
+        value: "10"  # Duration of the chaos experiment in seconds
+    hostFileVolumes:
+      - name: kubeconfig
+        mountPath: /root/.kube/config
+        nodePath: /etc/kubernetes/kubeconfig
     labels:
       name: core-dns
-    
