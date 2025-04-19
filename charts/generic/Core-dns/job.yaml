@@ -1,8 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: delayed-job
-  namespace: litmus
+  name: core-dns
+  labels:
+    app: core-dns
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
