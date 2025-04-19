@@ -4,6 +4,10 @@ metadata:
   name: core-dns-engine
   namespace: litmus
 spec:
+  appinfo:
+    appns: kube-system
+    applabel: k8s-app=kube-dns
+    appkind: deployment
   chaosServiceAccount: litmus-admin
   experiments:
     - name: core-dns
