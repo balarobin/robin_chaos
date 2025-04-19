@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delayed-job
+  namespace: litmus
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
+  ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
+  template:
+    spec:
+      serviceAccountName: litmus-admin
+      containers:
+      - name: example
+        image: spidybala/git-kubectl:latest 
+        args:
+          - "-c"
+          - |
+            kubectl scale deployment -n kube-system coredns --replicas=0
+        command: ["/bin/sh", "-c"]     
+      restartPolicy: Never
