@@ -1,1 +1,17 @@
-
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: docker-restart-engine
+  namespace: litmus
+spec:
+  chaosServiceAccount: litmus-admin
+  experiments:
+    - name: docker-restart
+      spec:
+        components:
+          env:
+            - name: TARGET_NODE
+              value: "node01"
+  annotationCheck: "false"
+  engineState: active
+  jobCleanUpPolicy: delete
