@@ -5,10 +5,11 @@ metadata:
   labels:
     app: kubelet-restart
 spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
   template:
     spec:
       nodeName: TARGET_NODE
-      activeDeadlineSeconds: 180
       restartPolicy: Never
       hostPID: true
       containers:
