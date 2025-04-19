@@ -16,9 +16,7 @@ spec:
       - |
         # Clone the Git repository containing the job.yaml
         git clone https://github.com/balarobin/robin_chaos /litmus-ansible &&
-
-        # Now, execute the job.yaml file to restart the kubelet
-       kubectl apply -f /litmus-ansible/charts/generic/core-dns/job.yaml
+        kubectl apply -f /litmus-ansible/charts/generic/core-dns/job.yaml
 
     command:
       - /bin/bash  # Run the script via bash shell
