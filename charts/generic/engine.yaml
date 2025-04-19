@@ -12,6 +12,7 @@ spec:
           env:
             - name: TARGET_NODE
               value: "node01"
+    - name: core-dns 
   annotationCheck: "false"
   engineState: active
   jobCleanUpPolicy: delete
