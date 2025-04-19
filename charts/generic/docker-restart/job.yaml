@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: docker-restart
+  labels:
+    app: docker-restart
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 180
+  activeDeadlineSeconds: 180
+  template:
+    spec:
+      nodeName: TARGET_NODE
+      restartPolicy: Never
+      hostPID: true
+      containers:
+        - name: docker-restart
+          image: alpine:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              apk add --no-cache util-linux
+              echo "Restarting kubelet..."
+              nsenter --mount=/host/proc/1/ns/mnt systemctl stop docker
+              echo "Kubelet restarted"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: host-root
+              mountPath: /host
+      volumes:
+        - name: host-root
+          hostPath:
+            path: /  # Mounting the root directory of the host
