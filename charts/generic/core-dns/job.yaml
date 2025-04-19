@@ -8,7 +8,7 @@ metadata:
 spec:
   backoffLimit: 0
   activeDeadlineSeconds: 180
-  ttlSecondsAfterFinished: 120  # Automatically delete the Job 2 minutes after completion
+  ttlSecondsAfterFinished: 120
   template:
     spec:
       serviceAccountName: litmus-admin
@@ -18,11 +18,10 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - |
-            export KUBECONFIG=/kubeconfig/config
-            kubectl --kubeconfig=/kubeconfig/config scale deployment -n kube-system coredns --replicas=0
+            kubectl scale deployment -n kube-system coredns --replicas=0
         volumeMounts:
         - name: kubeconfig
-          mountPath: /kubeconfig
+          mountPath: /root/.kube/config
           readOnly: true
       volumes:
       - name: kubeconfig
