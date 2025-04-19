@@ -2,7 +2,7 @@
 apiVersion: litmuschaos.io/v1alpha1
 kind: ChaosExperiment
 metadata:
-  name: kubelet-restart
+  name: core-dns
   namespace: litmus
 spec:
   definition:
@@ -30,5 +30,5 @@ spec:
       - name: job-template
         resource: job.yaml
     labels:
-      name: kubelet-restart
+      name: core-dns
     
