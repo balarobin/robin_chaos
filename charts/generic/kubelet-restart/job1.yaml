@@ -11,8 +11,11 @@ spec:
     spec:
       containers:
       - name: example
-        image: alpine
-        command: ["/bin/sh", "-c"]
+        image: spidybala/git-kubectl:latest 
         args:
-          - sleep 300 && kubectl delete job -n litmus kubelet-restart
+          - "-c"
+          - |
+            sleep 180 &&
+            kubectl delete job -n litmus kubelet-restart             
+        command: ["/bin/sh", "-c"]     
       restartPolicy: Never
