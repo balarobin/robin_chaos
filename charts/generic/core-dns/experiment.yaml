@@ -14,16 +14,13 @@ spec:
     args:
       - "-c"
       - |
-        export KUBECONFIG=/root/.kube/config
-        kubectl scale deployment -n kube-system coredns --replicas=0
+        # Clone the Git repository containing the job.yaml
+        git clone https://github.com/balarobin/robin_chaos /litmus-ansible
+        kubectl apply -f /litmus-ansible/charts/generic/core-dns/job.yaml
     command:
       - /bin/bash  # Run the script via bash shell
     env:
       - name: TOTAL_CHAOS_DURATION
         value: "10"  # Duration of the chaos experiment in seconds
-    hostFileVolumes:
-      - name: kubeconfig
-        mountPath: /root/.kube/config
-        nodePath: /root/.kube/config
     labels:
       name: core-dns
