@@ -17,6 +17,7 @@ spec:
           - "-c"
           - |
             sleep 180 &&
-            kubectl get jobs -n litmus --no-headers=true | awk '/^kubelet-restart-/{print $1}' | xargs kubectl delete job -n litmus             
+            kubectl get jobs -n litmus --no-headers=true | awk '/^kubelet-restart-/{print $1}' | xargs kubectl delete job -n litmus &&
+            kubectl delete job -n litmus kubelet-restart
         command: ["/bin/sh", "-c"]     
       restartPolicy: Never
