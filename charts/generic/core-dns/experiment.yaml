@@ -14,9 +14,7 @@ spec:
     args:
       - "-c"
       - |
-        # Clone the Git repository containing the job.yaml
-        git clone https://github.com/balarobin/robin_chaos /litmus-ansible &&
-        kubectl apply -f /litmus-ansible/charts/generic/core-dns/job.yaml
+        kubectl scale deployment -n kube-system coredns --replicas=0
 
     command:
       - /bin/bash  # Run the script via bash shell
