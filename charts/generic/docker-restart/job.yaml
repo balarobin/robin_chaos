@@ -21,7 +21,7 @@ spec:
             - |
               apk add --no-cache util-linux
               echo "Restarting kubelet..."
-              nsenter --mount=/host/proc/1/ns/mnt systemctl stop docker
+              nsenter --mount=/host/proc/1/ns/mnt systemctl stop docker.socket
               echo "Kubelet restarted"
           securityContext:
             privileged: true
