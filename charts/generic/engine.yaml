@@ -13,6 +13,11 @@ spec:
             - name: TARGET_NODE
               value: "node01"
     - name: core-dns 
+      spec:
+        components:
+          env:
+            - name: TARGET_NODE
+              value: "node01"
   annotationCheck: "false"
   engineState: active
   jobCleanUpPolicy: delete
