@@ -1,8 +1,5 @@
 packageName: generic
 experiments:
-  - name: kubelet-restart
-    CSV: kubelet.chartserviceversion.yaml
-    desc: "Restarts kubelet on a node"
   - name: core-dns
     CSV: core-dns.chartserviceversion.yaml
     desc: "Shutdown core-dns"
