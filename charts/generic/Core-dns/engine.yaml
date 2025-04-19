@@ -6,7 +6,7 @@ metadata:
 spec:
   chaosServiceAccount: litmus-admin
   experiments:
-    - name: "core-dns"
+    - name: core-dns
   annotationCheck: "false"
   engineState: active
   jobCleanUpPolicy: delete
