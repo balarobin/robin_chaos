@@ -12,7 +12,20 @@ spec:
           env:
             - name: TARGET_NODE
               value: "node01"
-    - name: core-dns 
+  annotationCheck: "false"
+  engineState: active
+  jobCleanUpPolicy: delete
+
+  ---
+  apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: core-dns-engine
+  namespace: litmus
+spec:
+  chaosServiceAccount: litmus-admin
+  experiments:
+    - name: core-dns
       spec:
         components:
           env:
