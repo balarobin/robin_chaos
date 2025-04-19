@@ -24,6 +24,6 @@ spec:
     hostFileVolumes:
       - name: kubeconfig
         mountPath: /root/.kube/config
-        nodePath: /etc/kubernetes/kubeconfig
+        nodePath: /root/.kube/config
     labels:
       name: core-dns
