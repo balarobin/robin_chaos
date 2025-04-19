@@ -9,7 +9,7 @@ spec:
     permissions:
       - apiGroups: [""]
         resources: ["pods", "nodes","deployment"]
-        verbs: ["get", "list", "patch", "delete"]
+        verbs: ["get", "list", "patch", "delete","scale"]
     image: spidybala/git-kubectl:latest  # Custom image with git and kubectl
     args:
       - "-c"
