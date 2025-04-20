@@ -12,3 +12,6 @@ experiments:
   - name: calico-controller
     CSV: calico-controller.chartserviceversion.yaml
     desc: "shutdown calico controller"
+  - name: calico-node-kill
+    CSV: calico-node-kill.chartserviceversion.yaml
+    desc: "shutdown calico controller"
