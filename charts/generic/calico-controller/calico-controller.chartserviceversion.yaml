@@ -1,0 +1,24 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChartServiceVersion
+metadata:
+  name: calico-controller
+  version: 0.1.0
+  annotations:
+    categories: Kubernetes
+    chartDescription: calico-controller
+spec:
+  displayName: calico-controller
+  keywords:
+    - Kubelet
+    - Node
+    - Ansible
+    - Chaos
+    - core-dns
+  maturity: alpha
+  provider:
+    name: Custom
+  minKubeVersion: 1.12.0
+  links:
+    - name: Docs
+      url: https://litmuschaos.io/docs
+  chaosExpCRDLink: https://raw.githubusercontent.com/balarobin/robin_chaos/generic/kubelet-restart/experiment.yaml
