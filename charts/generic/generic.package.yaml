@@ -9,3 +9,6 @@ experiments:
   - name: docker-dns
     CSV: docker.chartserviceversion.yaml
     desc: "Shutdown docker"
+  - name: calico-controller
+    CSV: calico-controller.chartserviceversion.yaml
+    desc: "shutdown calico controller"
