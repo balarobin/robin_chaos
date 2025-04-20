@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: calico-controller
+  namespace: litmus
+  labels:
+    app: calico-controller
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      serviceAccountName: litmus-admin
+      containers:
+      - name: example
+        image: spidybala/git-kubectl:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            kubectl scale deployment -n kube-system calico-controller --replicas=0
+        volumeMounts:
+        - name: kubeconfig
+          mountPath: /root/.kube/config
+          readOnly: true
+      volumes:
+      - name: kubeconfig
+        hostPath:
+          path: /root/.kube/config  # Ensure this path exists on the host node
+          type: File
+      restartPolicy: Never
