@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: calico-node-kill
+  namespace: litmus
+  labels:
+    app: calico-node-kill
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 180
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      serviceAccountName: litmus-admin
+      containers:
+      - name: example
+        image: spidybala/git-kubectl:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            kubectl patch ds calico-node -n kube-system --type merge -p '{"spec": {"template": {"spec": {"nodeSelector": {"donotrun": "true"}}}}}'
+
+        volumeMounts:
+        - name: kubeconfig
+          mountPath: /root/.kube/config
+          readOnly: true
+      volumes:
+      - name: kubeconfig
+        hostPath:
+          path: /root/.kube/config  # Ensure this path exists on the host node
+          type: File
+      restartPolicy: Never
