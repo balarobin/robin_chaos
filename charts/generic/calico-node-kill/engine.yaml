@@ -6,7 +6,7 @@ metadata:
 spec:
   chaosServiceAccount: litmus-admin
   experiments:
-    - name: calico-node-kill-controller
+    - name: calico-node-kill
       spec:
         components:
           env:
