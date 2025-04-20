@@ -14,6 +14,7 @@ spec:
     - kubelet-restart
     - core-dns
     - docker-restart
+    - calico-controller
   keywords:
     - Kubernetes
     - Node
