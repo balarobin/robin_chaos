@@ -1,0 +1,17 @@
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: calico-node-kill-engine
+  namespace: litmus
+spec:
+  chaosServiceAccount: litmus-admin
+  experiments:
+    - name: calico-node-kill-controller
+      spec:
+        components:
+          env:
+            - name: TARGET_NODE
+              value: "node01"
+  annotationCheck: "false"
+  engineState: active
+  jobCleanUpPolicy: delete
