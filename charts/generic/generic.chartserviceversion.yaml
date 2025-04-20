@@ -15,6 +15,7 @@ spec:
     - core-dns
     - docker-restart
     - calico-controller
+    - calico-node-kill
   keywords:
     - Kubernetes
     - Node
